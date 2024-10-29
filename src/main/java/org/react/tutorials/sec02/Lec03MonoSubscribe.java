@@ -9,12 +9,28 @@ public class Lec03MonoSubscribe {
     private static final Logger log = LoggerFactory.getLogger(Lec03MonoSubscribe.class);
 
     public static void main(String[] args) {
+        demo1();
+        demo2();
+    }
+
+    private static void demo1(){
         var mono = Mono.just(1);
-                // .map(i -> i / 0); tigger the error
+        // .map(i -> i / 0); tigger the error
         mono.subscribe(
-                i -> log.info("received: {}", i),
+                i -> log.info("demo 1 received: {}", i),
                 err -> log.error("error: ", err),
                 () -> log.info("completed!")
+        );
+    }
+
+    private static void demo2(){
+        var mono = Mono.just(1);
+        // .map(i -> i / 0); tigger the error
+        mono.subscribe(
+                i -> log.info("demo 2 received: {}", i),
+                err -> log.error("error: ", err),
+                () -> log.info("completed!"),
+                subscription -> subscription.request(5)
         );
     }
 }
