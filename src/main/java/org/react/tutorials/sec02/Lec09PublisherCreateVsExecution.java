@@ -16,13 +16,14 @@ public class Lec09PublisherCreateVsExecution {
     }
 
     private static Mono<String> getName() {
-        log.info("getName method called...");
+        log.info("wait to generate a name...");
         return Mono.fromSupplier(() -> {
-            log.info("generate name");
+            log.info("generating a name...");
             log.info("(delay 5 seconds...)");
+            // simulate a long process
             Util.sleepSeconds(5);
             log.info("done...");
-            return Util.faker().name().name();
+            return Util.faker().name().fullName();
         });
     }
 }
