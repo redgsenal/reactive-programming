@@ -31,6 +31,6 @@ public class DefaultSubscriber<T> implements Subscriber<T> {
 
     @Override
     public void onComplete() {
-        //log.info("{} -> completed!", this.name);
+        log.info("{} -> completed!", this.name);
     }
 }
