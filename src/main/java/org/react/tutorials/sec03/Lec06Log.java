@@ -3,7 +3,7 @@ package org.react.tutorials.sec03;
 import org.react.tutorials.common.Util;
 import reactor.core.publisher.Flux;
 
-public class Le06Log {
+public class Lec06Log {
 
     public static void main(String[] args) {
         Flux.range(1, 100)
