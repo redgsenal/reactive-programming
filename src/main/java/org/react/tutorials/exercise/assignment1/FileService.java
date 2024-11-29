@@ -1,4 +1,4 @@
-package org.react.tutorials.exercise;
+package org.react.tutorials.exercise.assignment1;
 
 import reactor.core.publisher.Mono;
 

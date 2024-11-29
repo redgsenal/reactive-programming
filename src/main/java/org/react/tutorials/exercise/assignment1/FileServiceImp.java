@@ -1,4 +1,4 @@
-package org.react.tutorials.exercise;
+package org.react.tutorials.exercise.assignment1;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
