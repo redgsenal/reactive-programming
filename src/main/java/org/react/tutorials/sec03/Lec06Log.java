@@ -10,6 +10,6 @@ public class Lec06Log {
                 .log("numbers ->")
                 .map(i -> Util.faker().name().fullName())
                 .log("names ->")
-                .subscribe(Util.subscriber());
+                .subscribe(Util.subscriber("sub1"));
     }
 }
