@@ -16,6 +16,7 @@ public class Assignment2 {
 
     private static final int MAX_STOCK_PRICE = 110;
     private static final int MIN_BUYING_STOCK_PRICE = 90;
+    private static final int INITIAL_BALANCE = 1000;
 
     private static int totalStocks = 0;
 
@@ -27,7 +28,9 @@ public class Assignment2 {
                 .takeUntil(Assignment2::isCutOffPrice)
                 .map(Assignment2::buyStock)
                 .doOnComplete(() -> {
+                    int profit = INITIAL_BALANCE - totalStocks;
                     log.info("compute total stocks {}: ", totalStocks);
+                    log.info("compute profit {}: ", profit);
                 })
                 .subscribe(Util.subscriber());
 
