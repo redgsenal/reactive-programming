@@ -1,7 +1,7 @@
 package org.react.tutorials.sec02;
 
 import org.react.tutorials.common.Util;
-import org.react.tutorials.sec02.client.ExternalServiceClient;
+import org.react.tutorials.client.ExternalServiceClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
