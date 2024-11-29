@@ -35,4 +35,12 @@ public class Util {
             throw new RuntimeException(e);
         }
     }
+
+    public  static Mono<String> getUserName(int userId) {
+        return switch (userId) {
+            case 1 -> Mono.just("Sam");
+            case 2 -> Mono.empty(); // same as null
+            default -> Mono.error(new RuntimeException("Invalid user id"));
+        };
+    }
 }
