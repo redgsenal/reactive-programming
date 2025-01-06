@@ -16,6 +16,7 @@ public class Assignment3 {
             Path path = Path.of("src/main/resources/sample.txt");
             log.info("reading contents from file: {}", path.toAbsolutePath());
             reader.read(path)
+                    //.takeUntil(s -> {return s.toLowerCase().contains("!");})
                     .subscribe(Util.subscriber());
     }
 }
