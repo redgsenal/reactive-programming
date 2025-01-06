@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 public class Assignment3 {
 
@@ -12,8 +13,9 @@ public class Assignment3 {
 
     public static void main(String[] args) {
             FileReaderServiceImpl reader = new FileReaderServiceImpl();
-            log.info("{}", FileSystems.getDefault().getPath("").toAbsolutePath());
-            reader.read(FileSystems.getDefault().getPath("X:/react/programming-playground/src/main/java/org/react/tutorials/exercise/assignment3/sample.txt"))
+            Path path = Path.of("src/main/resources/sample.txt");
+            log.info("reading contents from file: {}", path.toAbsolutePath());
+            reader.read(path)
                     .subscribe(Util.subscriber());
     }
 }

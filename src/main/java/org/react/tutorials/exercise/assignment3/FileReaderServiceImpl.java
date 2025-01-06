@@ -17,16 +17,19 @@ public class FileReaderServiceImpl implements FileReaderService {
                 () -> new Scanner(path.toFile()),
                 (scanner, sink) -> {
                     if (scanner.hasNextLine()) {
+                        log.info("reading file content...");
                         String line = scanner.nextLine();
                         sink.next(line);
-                    } else {
-                        sink.complete();
+                        return scanner;
                     }
+                    sink.complete();
+                    log.info("read file complete!");
                     return scanner;
                 },
                 scanner -> {
                     try {
                         scanner.close();
+                        log.info("reader file scanner closed");
                     } catch (Exception e) {
                         log.warn("error reading file: {} ", path.getFileName());
                     }
