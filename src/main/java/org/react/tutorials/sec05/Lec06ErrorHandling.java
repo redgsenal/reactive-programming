@@ -11,7 +11,30 @@ public class Lec06ErrorHandling {
     private static final Logger log = LoggerFactory.getLogger(Lec06ErrorHandling.class);
 
     public static void main(String[] args) {
-        onErrorHandling4();
+        onErrorContinue();
+    }
+
+    private static void onErrorContinue() {
+        Flux.range(1, 10)
+                .map(v -> (v == 5) ? v / 0 : v)
+                .onErrorContinue((err, v) -> {
+                    log.warn("error: value {} - {}", v, err.getMessage());
+                })
+                .subscribe(Util.subscriber());
+    }
+
+    private static void onErrorResume() {
+        Flux.range(1, 10)
+                .map(v -> (v == 5) ? v / 0 : v)
+                .onErrorResume(err -> Mono.just(5))
+                .subscribe(Util.subscriber());
+    }
+
+    private static void onErrorComplete() {
+        Flux.range(1, 10)
+                .map(v -> (v == 5) ? v / 0 : v)
+                .onErrorComplete()
+                .subscribe(Util.subscriber());
     }
 
     private static void onErrorHandling4() {
