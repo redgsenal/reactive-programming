@@ -5,9 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 
-public class Lec05Handle {
+public class Lec01Handle {
 
-    private static final Logger log = LoggerFactory.getLogger(Lec05Handle.class);
+    private static final Logger log = LoggerFactory.getLogger(Lec01Handle.class);
 
     public static void main(String[] args) {
         fluxHandler();
