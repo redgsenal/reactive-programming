@@ -39,10 +39,6 @@ public class Lec07DefaultIfEmpty {
         Mono.empty()
                 .defaultIfEmpty("default text is empty")
                 .subscribe(Util.subscriber());
-
-        Mono.just("hello world")
-                .defaultIfEmpty("default text is empty")
-                .subscribe(Util.subscriber());
     }
 
     private static void defaultIfMonoNotEmpty(){
