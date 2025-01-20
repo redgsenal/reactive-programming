@@ -13,12 +13,13 @@ public class Lec09Timeout {
 
     public static void main(String[] args) {
 
-        demoTimeout();
-        demoNoTimeout();
+        //demoTimeout();
+        //demoNoTimeout();
+        extraTimeout();
 
     }
 
-    private static void demoTimeout(){
+    private static void demoTimeout() {
         // timeout is shorter than the product name call time
         generateSlowProductName()
                 .timeout(Duration.ofSeconds(2), generateFallBackProductName())
@@ -27,7 +28,7 @@ public class Lec09Timeout {
         Util.sleepSeconds(5);
     }
 
-    private static void demoNoTimeout(){
+    private static void demoNoTimeout() {
         // timeout is long; more time for product name call
         generateSlowProductName()
                 .timeout(Duration.ofSeconds(5), generateFallBackProductName())
@@ -43,7 +44,19 @@ public class Lec09Timeout {
 
     private static Mono<String> generateFallBackProductName() {
         return Mono.fromSupplier(() -> "Acme Fallback Co.")
-                .delayElement(Duration.ofSeconds(1));
+                .delayElement(Duration.ofSeconds(1))
+                .doFirst(() -> log.info("do first from fallback...."));
     }
 
+    private static void extraTimeout() {
+        var mono = generateSlowProductName()
+                .timeout(Duration.ofMillis(200), generateFallBackProductName());
+
+        mono
+                .timeout(Duration.ofSeconds(3))
+                .subscribe(Util.subscriber());
+
+        Util.sleepSeconds(5);
+
+    }
 }
