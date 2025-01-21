@@ -35,4 +35,28 @@ public class ExternalServiceClient extends AbstractHttpClient {
                 .asString()
                 .map(Integer::parseInt);
     }
+
+    public Mono<String> getProduct(int productId) {
+        return this.httpClient
+                .get().uri("/demo03/product/" + productId)
+                .responseContent()
+                .asString()
+                .next();
+    }
+
+    public Mono<String> getEmptyFallbackProduct(int productId) {
+        return this.httpClient
+                .get().uri("/demo03/empty-fallback/product/" + productId)
+                .responseContent()
+                .asString()
+                .next();
+    }
+
+    public Mono<String> getTimeoutFallbackProduct(int productId) {
+        return this.httpClient
+                .get().uri("/demo03/timeout-fallback/product/" + productId)
+                .responseContent()
+                .asString()
+                .next();
+    }
 }
