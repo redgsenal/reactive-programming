@@ -34,7 +34,7 @@ public class Lec05MonoFromSupplier {
     }
 
     private static int sumWithException(List<Integer> listIntegers) throws Exception {
-        log.info("compute for the sum: {}", listIntegers);
+        log.info("compute for the sum with exception: {}", listIntegers);
         int v = listIntegers.stream().mapToInt(a -> a).sum();
         if (v % 2 == 0) throw new Exception("Invalid results");
         return v;
