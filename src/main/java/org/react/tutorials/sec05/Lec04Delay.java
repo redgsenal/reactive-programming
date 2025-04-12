@@ -3,9 +3,8 @@ package org.react.tutorials.sec05;
 import org.react.tutorials.common.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
 
-import java.time.Duration;
+import reactor.core.publisher.Flux;
 
 public class Lec04Delay {
 
@@ -28,7 +27,7 @@ public class Lec04Delay {
         // do something else that takes some time
         log.info("do country loop...");
         String country = null;
-        while(!"canada".equalsIgnoreCase(country)){
+        while (!"canada".equalsIgnoreCase(country)) {
             country = Util.faker().country().name();
             log.info("country: {}", country);
         }
