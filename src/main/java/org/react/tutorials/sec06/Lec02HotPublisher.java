@@ -8,12 +8,12 @@ import org.slf4j.LoggerFactory;
 
 import reactor.core.publisher.Flux;
 
-public class Loc02HotPublisher {
+public class Lec02HotPublisher {
 
-    private static final Logger log = LoggerFactory.getLogger(Loc02HotPublisher.class);
+    private static final Logger log = LoggerFactory.getLogger(Lec02HotPublisher.class);
 
     public static void main(String[] args) {
-        var streamFluxItems = streamItems().share();
+        var streamFluxItems = Util.streamItems().share();
 
         Util.sleepSeconds(1);
         streamFluxItems
@@ -28,7 +28,7 @@ public class Loc02HotPublisher {
         Util.sleepSeconds(15);
     }
 
-    public static Flux<String> streamItems() {
+    private static Flux<String> streamItems() {
         return Flux.generate(
                 () -> {
                     log.info("Generating items");

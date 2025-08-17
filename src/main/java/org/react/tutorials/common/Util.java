@@ -1,13 +1,19 @@
 package org.react.tutorials.common;
 
-import com.github.javafaker.Faker;
-import org.reactivestreams.Subscriber;
-import reactor.core.publisher.Mono;
-
 import java.time.Duration;
+
+import org.reactivestreams.Subscriber;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.github.javafaker.Faker;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public class Util {
 
+    private static final Logger log = LoggerFactory.getLogger(Util.class);
     public static final Faker faker = Faker.instance();
 
     public static <T> Subscriber<T> subscriber() {
@@ -28,7 +34,7 @@ public class Util {
         return faker;
     }
 
-    public static void sleepSeconds(int seconds){
+    public static void sleepSeconds(int seconds) {
         try {
             Thread.sleep(Duration.ofSeconds(seconds));
         } catch (InterruptedException e) {
@@ -36,11 +42,33 @@ public class Util {
         }
     }
 
-    public  static Mono<String> getUserName(int userId) {
+    public static Mono<String> getUserName(int userId) {
         return switch (userId) {
-            case 1 -> Mono.just("Sam");
-            case 2 -> Mono.empty(); // same as null
-            default -> Mono.error(new RuntimeException("Invalid user id"));
+            case 1 ->
+                Mono.just("Sam");
+            case 2 ->
+                Mono.empty(); // same as null
+            default ->
+                Mono.error(new RuntimeException("Invalid user id"));
         };
+    }
+
+    public static Flux<String> streamItems() {
+        return Flux.generate(
+                () -> {
+                    log.info("Generating items");
+                    return 1;
+                }, (state, sink) -> {
+                    var item = "Item " + state;
+                    log.info("current item: {}", item);
+                    sink.next(item);
+                    /* if (state >= 5) {
+                        sink.complete();
+                    } */
+                    return ++state;
+                })
+                .take(100)
+                .delayElements(Duration.ofSeconds(1))
+                .cast(String.class);
     }
 }
