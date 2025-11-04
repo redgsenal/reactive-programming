@@ -18,8 +18,12 @@ public class Lec03HotPublisherAutoConnect {
         Util.sleepSeconds(3);
         movieFlux
                 .take(3)
-                .subscribe(Util.subscriber("mike"));
+                .subscribe(Util.subscriber("sam"));
 
+        Util.sleepSeconds(3);
+        movieFlux
+                .take(3)
+                .subscribe(Util.subscriber("mike"));
         Util.sleepSeconds(15);
     }
 

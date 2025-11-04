@@ -12,32 +12,26 @@ public class Lec04HotPublisherCache {
     private static final Logger log = LoggerFactory.getLogger(Lec04HotPublisherCache.class);
 
     public static void main(String[] args) {
-        log.info("Starting Lec03AutoConnect...");
-        var movieFlux = movieStream().publish().autoConnect();
+        log.info("Starting Lec04HotPublisherCache...");
+        var stockFlux = stockStream().replay().autoConnect(0);
 
-        Util.sleepSeconds(3);
-        movieFlux
-                .take(3)
+        Util.sleepSeconds(4);
+        log.info("sam joining...");
+        stockFlux
+                .subscribe(Util.subscriber("sam"));
+
+        Util.sleepSeconds(4);
+        log.info("mike joining...");
+        stockFlux
                 .subscribe(Util.subscriber("mike"));
 
         Util.sleepSeconds(15);
     }
 
-    private static Flux<String> movieStream() {
-        return Flux.generate(
-                        () -> {
-                            log.info("receive request");
-                            return 1;
-                        },
-                        (state, sink) -> {
-                            var scene = "move scene ".concat(String.valueOf(state));
-                            log.info("playing {}", scene);
-                            sink.next(scene);
-                            return ++state;
-                        }
-                )
-                .take(10)
-                .delayElements(Duration.ofSeconds(1))
-                .cast(String.class);
+    private static Flux<Integer> stockStream() {
+        return Flux.generate(sink -> sink.next(Util.faker().random().nextInt(10, 1000)))
+                .delayElements(Duration.ofSeconds(3))
+                .doOnNext(price -> log.info("price emitting at {}", price))
+                .cast(Integer.class);
     }
 }
