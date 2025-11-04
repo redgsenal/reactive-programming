@@ -7,9 +7,9 @@ import reactor.core.publisher.Flux;
 
 import java.time.Duration;
 
-public class Lec03HotPublisherAutoConnect {
+public class Lec04HotPublisherCache {
 
-    private static final Logger log = LoggerFactory.getLogger(Lec03HotPublisherAutoConnect.class);
+    private static final Logger log = LoggerFactory.getLogger(Lec04HotPublisherCache.class);
 
     public static void main(String[] args) {
         log.info("Starting Lec03AutoConnect...");
